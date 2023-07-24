@@ -1,14 +1,40 @@
 package academy.devdojo.maratonajava.javacore.Xserializacao.domain;
 
-public class Aluno {
+import java.io.*;
+
+public class Aluno implements Serializable {
+
+    private static final long serialVersionUID = -4016141792869795765L;
+
     private Long id;
     private String nome;
-    private String password;
+    private transient String password;
+    private transient Turma turma;
 
     public Aluno(Long id, String nome, String password) {
         this.id = id;
         this.nome = nome;
         this.password = password;
+    }
+
+
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        try {
+            out.defaultWriteObject();
+            out.writeUTF(turma.getNome());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void readObject(ObjectInputStream ois) throws IOException {
+        try {
+            ois.defaultReadObject();
+            String nomeTurma = ois.readUTF();
+            turma = new Turma(nomeTurma);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -17,6 +43,7 @@ public class Aluno {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", password='" + password + '\'' +
+                ", turma=" + turma +
                 '}';
     }
 
@@ -42,5 +69,13 @@ public class Aluno {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Turma getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
     }
 }
