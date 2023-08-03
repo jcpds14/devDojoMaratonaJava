@@ -13,17 +13,8 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return String.format(
-                """
-                --------------------
-                
-                Cliente {
-                        Nome do Cliente = '%s'
-                        Tipo do Cliente = %s
-                        Número do tipo = %d
-                        Tipo de Pagamento = %s
-                }
-                """,
+        return String.format("--------------------\n Cliente { \nNome do Cliente = '%s' \nTipo do Cliente = %s " +
+                        "\nNúmero do tipo = %d \nTipo de Pagamento = %s \n}",
                 nome,
                 tipoCliente.getNomeRelatorio(),
                 tipoCliente.getValor(),
